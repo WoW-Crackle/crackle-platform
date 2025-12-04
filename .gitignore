@@ -68,13 +68,8 @@ local_settings.py
 
 # Environment variables (VERY IMPORTANT)
 .env
-.env.*
 *.env
 
 # OS-specific
 .DS_Store
 Thumbs.db
-
-# Docker / container
-docker-compose*.yaml
-Dockerfile.*
