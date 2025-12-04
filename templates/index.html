@@ -1,10 +1,273 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Crackle</title>
-</head>
-<body>
-    <h1>Hello, Flask</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>사이트 제목</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+          sans-serif;
+        background-color: #f5f5ff;
+        color: #111827;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* 상단 네비게이션 */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        width: 100%;
+        background-color: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .navbar-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .nav-left {
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      .nav-center {
+        display: flex;
+        gap: 32px;
+        font-size: 15px;
+      }
+
+      .nav-center a {
+        color: #6b7280;
+      }
+
+      .nav-center a.active {
+        color: #4f46e5;
+        font-weight: 600;
+      }
+
+      .nav-right {
+        display: flex;
+        gap: 10px;
+        font-size: 14px;
+      }
+
+      .nav-button {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid #e5e7eb;
+        background-color: #ffffff;
+        color: #374151;
+        cursor: pointer;
+      }
+
+      .nav-button span.icon {
+        font-size: 16px;
+      }
+
+      /* 메인 히어로 영역 */
+      .hero {
+        width: 100%;
+        padding: 60px 16px 80px;
+      }
+
+      .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        background-color: #eef0ff;
+        border-radius: 24px;
+        padding: 60px 60px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .hero-left-title {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.25;
+        margin-bottom: 16px;
+      }
+
+      .hero-left-title span {
+        display: block;
+      }
+
+      .hero-desc {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #4b5563;
+        margin-bottom: 28px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        padding: 10px 20px;
+        border-radius: 999px;
+        border: none;
+        background-color: #6366f1;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .btn-secondary {
+        padding: 10px 20px;
+        border-radius: 999px;
+        border: 1px solid #d1d5db;
+        background-color: #ffffff;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      /* 오른쪽 이미지 박스 */
+      .hero-image-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      .hero-image-card {
+        width: 100%;
+        max-width: 360px;
+        aspect-ratio: 16 / 10;
+        border-radius: 24px;
+        background: #ffffff;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-image-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 999px;
+        border: 8px solid #fee2e2;
+        background: radial-gradient(circle at 30% 30%, #f97316, #ef4444);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-image-placeholder span {
+        font-size: 40px;
+        color: #fef2f2;
+      }
+
+      /* 하단 작은 텍스트 (선택사항) */
+      .footer-mark {
+        max-width: 1100px;
+        margin: 0 auto 20px;
+        padding: 0 20px;
+        font-size: 11px;
+        color: #9ca3af;
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+          padding: 40px 24px;
+        }
+
+        .hero-image-wrapper {
+          order: -1;
+        }
+
+        .navbar-inner {
+          justify-content: space-between;
+        }
+
+        .nav-center {
+          display: none; /* 모바일에선 메뉴 생략(추후 디자인팀이 수정) */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 상단 네비게이션 바 -->
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <div class="nav-left">사이트 로고</div>
+
+        <div class="nav-center">
+          <a href="#" class="active">홈</a>
+          <a href="#">문제</a>
+          <a href="#">랭킹</a>
+        </div>
+
+        <div class="nav-right">
+          <button class="nav-button">
+            <span class="icon">📝</span>
+            <span>내 제출</span>
+          </button>
+          <button class="nav-button">
+            <span class="icon">🏠</span>
+            <span>대시보드</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 메인 히어로 섹션 -->
+    <main class="hero">
+      <div class="hero-inner">
+        <!-- 왼쪽 텍스트 영역 -->
+        <section>
+          <div class="hero-left-title">
+            <span>사이트 제목</span>
+            <span>사이트 제목</span>
+          </div>
+          <p class="hero-desc">
+            시뮬레이션된 공격과 취약점 수정을 통해 실제 사이버 보안 기술을
+            연마하세요. 해킹 기법을 배우고 방어 전략을 마스터하는 실습
+            환경입니다.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn-primary">로그인 / 회원가입</button>
+            <button class="btn-secondary">게스트로 시작</button>
+          </div>
+        </section>
+
+        <!-- 오른쪽 이미지 / 일러스트 영역 (임시) -->
+        <section class="hero-image-wrapper">
+          <div class="hero-image-card">
+            <div class="hero-image-placeholder">
+              <!-- 임시 아이콘 (디자인팀에서 실제 이미지로 교체 예정) -->
+              <span>🔒</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="footer-mark">임시 디자인 · 이후 디자인팀에서 수정 예정</div>
+  </body>
 </html>
