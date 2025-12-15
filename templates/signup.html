@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>회원가입</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+          sans-serif;
+        background-color: #f9fafb;
+        color: #111827;
+      }
+
+      .page-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 16px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 420px;
+        background-color: #ffffff;
+        border-radius: 24px;
+        padding: 32px 32px 28px;
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+        border: 1px solid #f3f4f6;
+      }
+
+      .card-title {
+        font-size: 22px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 28px;
+      }
+
+      .form-group {
+        margin-bottom: 14px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: #4b5563;
+        margin-bottom: 4px;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        font-size: 14px;
+        background-color: #f9fafb;
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease,
+          background-color 0.15s ease;
+      }
+
+      .form-input::placeholder {
+        color: #9ca3af;
+      }
+
+      .form-input:focus {
+        border-color: #6366f1;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4);
+      }
+
+      .submit-btn {
+        margin-top: 18px;
+        width: 100%;
+        padding: 11px 16px;
+        border-radius: 999px;
+        border: none;
+        background-color: #6366f1;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.15s ease, box-shadow 0.15s ease,
+          transform 0.05s ease;
+      }
+
+      .submit-btn:hover {
+        background-color: #4f46e5;
+        box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+      }
+
+      .submit-btn:active {
+        transform: translateY(1px);
+        box-shadow: none;
+      }
+
+      .bottom-text {
+        margin-top: 18px;
+        text-align: center;
+        font-size: 13px;
+        color: #6b7280;
+      }
+
+      .bottom-text a {
+        color: #6366f1;
+        font-weight: 500;
+        text-decoration: none;
+        margin-left: 4px;
+      }
+
+      .bottom-text a:hover {
+        text-decoration: underline;
+      }
+
+      .error-box {
+        margin-bottom: 12px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        background-color: #fef2f2;
+        color: #b91c1c;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <div class="card">
+        <div class="card-title">새 계정 생성</div>
+
+        <div id="error-box" class="error-box" style="display: none"></div>
+
+        <form id="signup-form">
+          <div class="form-group">
+            <label class="form-label" for="name">사용자 이름</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              class="form-input"
+              placeholder="플레이어 이름 입력"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">이메일</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              class="form-input"
+              placeholder="이메일 주소"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">비밀번호</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="form-input"
+              placeholder="안전한 비밀번호 생성"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password_confirm">비밀번호 확인</label>
+            <input
+              id="password_confirm"
+              name="password_confirm"
+              type="password"
+              class="form-input"
+              placeholder="비밀번호 다시 입력"
+              required
+            />
+          </div>
+
+          <button type="submit" class="submit-btn">가입</button>
+        </form>
+
+        <div class="bottom-text">
+          계정이 이미 있으신가요?
+          <a href="/login">로그인</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const signupForm = document.getElementById("signup-form");
+      const errorBox = document.getElementById("error-box");
+
+      signupForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorBox.style.display = "none";
+        errorBox.innerHTML = "";
+
+        const payload = {
+          username: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value,
+          password_confirm: document.getElementById("password_confirm").value,
+        };
+
+        try {
+          const res = await fetch("/auth/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          if (res.status === 201) {
+            // 성공 → 로그인 페이지로 이동
+            window.location.href = "/login";
+          } else {
+            const data = await res.json();
+            const errors = data.errors || {};
+            const messages = [];
+
+            for (const [field, msgs] of Object.entries(errors)) {
+              msgs.forEach((m) => messages.push(`${field}: ${m}`));
+            }
+
+            if (messages.length > 0) {
+              errorBox.innerHTML = messages.join("<br />");
+              errorBox.style.display = "block";
+            } else {
+              alert("회원가입 중 알 수 없는 오류가 발생했습니다.");
+            }
+          }
+        } catch (err) {
+          console.error(err);
+          alert("서버와 통신 중 오류가 발생했습니다.");
+        }
+      });
+    </script>
+  </body>
+</html>

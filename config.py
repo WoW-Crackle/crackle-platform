@@ -15,5 +15,8 @@ SQLALCHEMY_DATABASE_URI = (
     f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )
 
+# JWT 서명/검증에 사용되는 서버 비밀키
+SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
+
 # SQLAlchemy의 객체 변경 감시 기능 비활성화
 SQLALCHEMY_TRACK_MODIFICATIONS = False

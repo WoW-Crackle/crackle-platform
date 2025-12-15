@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from extensions import db
 
 # User 모델 정의
@@ -16,7 +16,7 @@ class User(db.Model):
     # 권한 : user / admin
     role = db.Column(db.String(20), nullable=False, default="user")
     # 계정 생성 일시
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc),)
     
     __table_args__ = (
         db.CheckConstraint("role IN ('user','admin')", name="ck_users_role"),
