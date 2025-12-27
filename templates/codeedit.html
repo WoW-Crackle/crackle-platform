@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}코드 편집기 - Crackle{% endblock %}
+{% set page = "challenges" %}
+
+{% block content %}
+<div class="editor-wrapper">
+
+  <div class="challenge-info">
+    <h2 class="challenge-title">{{ challenge.title }}</h2>
+    <div class="status-tag">초급</div>
+
+    <div class="server-box">
+      <p class="server-label">Server</p>
+      <a href="#" class="server-link">Launch vulnerable app</a>
+    </div>
+  </div>
+
+  <div class="code-panel">
+    <div class="panel-header">
+      <span>코드 편집기</span>
+      <div class="tool-options">
+        <select class="lang-select">
+          <option>Python</option>
+        </select>
+        <select class="file-select">
+          <option>app.py</option>
+        </select>
+      </div>
+    </div>
+
+    <textarea class="code-box" placeholder="# 여기에 코드를 작성하세요." spellcheck="false"></textarea>
+
+    </textarea>
+
+    <div class="btn-row">
+      <button class="run-btn">Run</button>
+      <button class="submit-btn">Submit</button>
+    </div>
+
+    <div class="output-panel">
+      <p class="output-text">Click Run to test your code or Submit to run all test cases...</p>
+    </div>
+  </div>
+
+</div>
+
+<style>
+body {
+  background: #eef0ff;
+}
+
+.editor-wrapper {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 32px;
+  max-width: 1400px;
+  margin: 70px auto;
+  width: 94%;
+}
+
+.challenge-info {
+  background: #fff;
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.07);
+}
+
+.challenge-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.status-tag {
+  display: inline-block;
+  background: #4ade80;
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 7px;
+  margin-bottom: 18px;
+}
+
+.server-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.server-link {
+  font-size: 15px;
+  color: #4f46e5;
+}
+
+.code-panel {
+  background: #fff;
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 500px;
+}
+
+.panel-header {
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tool-options select {
+  border: 1px solid #cbd5e1;
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 15px;
+}
+
+.code-box {
+  width: 100%;
+  height: 340px;
+  background: #f8f9ff;
+  border: 1px solid #d0d3e4;
+  border-radius: 12px;
+  font-size: 15px;
+  padding: 16px;
+  font-family: Consolas, monospace;
+  outline: none;
+  color: #1f2937;
+  line-height: 1.55;
+  resize: none;
+  min-width: 100%;
+  min-height: 340px; 
+  ime-mode: disabled; /* 한국어 입력기 사용 제한 */
+}
+
+.btn-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.run-btn,
+.submit-btn {
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.15s ease-in-out;
+}
+
+.run-btn {
+  background: #7b61ff;
+}
+.run-btn:hover {
+  background: #6a54e8;
+}
+
+.submit-btn {
+  background: #4f46e5;
+}
+.submit-btn:hover {
+  background: #4338ca;
+}
+
+.output-panel {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 20px;
+  font-size: 15px;
+  color: #374151;
+  border: 1px solid #e1e4f2;
+}
+
+@media (max-width: 850px) {
+  .editor-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .code-panel {
+    padding: 26px;
+  }
+}
+
+</style>
+
+{% endblock %}
