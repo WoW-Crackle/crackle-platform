@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block title %}테스트 결과 - Crackle{% endblock %}
+{% set page = "challenges" %}
+
+{% block content %}
+<div class="result-wrapper">
+
+    <div class="result-title">테스트 결과 및 힌트</div>
+
+    {% if result == "fail" %}
+    <div class="alert-box alert-fail">
+        <span>❌ 실패!</span>
+        <span>아쉽게도 일부 테스트를 통과하지 못했습니다.</span>
+    </div>
+    {% else %}
+    <div class="alert-box alert-success">
+        <span>🟢 성공!</span>
+        <span>테스트에 통과하였습니다!</span>
+    </div>
+    {% endif %}
+
+    <div class="stats-container">
+        <div class="stats-cards">
+            <div class="stat-item">
+                <div class="stat-value">{{ total_count }}</div>
+                <div class="stat-label">총 테스트</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ pass_count }}</div>
+                <div class="stat-label">통과한 테스트</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ fail_count }}</div>
+                <div class="stat-label">실패한 테스트</div>
+            </div>
+        </div>
+    </div>
+
+    {% if result == "fail" and hints %}
+    <div class="hints-container">
+        <div class="hints-title">💡 힌트</div>
+        {% for h in hints %}
+        <div class="hint-item">{{ h }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <button class="action-btn" onclick="history.back()">
+        {% if result == 'success' %} 제출하기 {% else %} 수정하기 {% endif %}
+    </button>
+
+</div>
+
+<style>
+body {
+    background: #f8fafc;
+}
+
+.result-wrapper {
+    max-width: 900px;
+    width: 92%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.result-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 28px;
+}
+
+.alert-box {
+    padding: 18px 22px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 15px;
+    margin-bottom: 28px;
+}
+
+.alert-fail {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #b91c1c;
+}
+
+.alert-success {
+    background: #ecfdf5;
+    border: 1px solid #6ee7b7;
+    color: #065f46;
+}
+
+.stats-container {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 28px;
+}
+
+.stats-cards {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    min-width: 110px;
+    padding: 10px 0;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.hints-container {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 36px;
+    text-align: left;
+}
+
+.hints-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.hint-item {
+    background: #eef2ff;
+    padding: 12px;
+    border-radius: 8px;
+    color: #374151;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.action-btn {
+    width: 100%;
+    max-width: 260px;
+    background: #6366f1;
+    color: #fff;
+    font-weight: 600;
+    padding: 14px 20px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin: 0 auto;
+}
+.action-btn:hover {
+    background: #4f46e5;
+}
+
+/* 📱 모바일 최적화 */
+@media (max-width: 600px) {
+    .alert-box {
+        flex-direction: column;
+        text-align: center;
+        gap: 6px;
+    }
+    .stats-cards {
+        gap: 16px;
+    }
+    .stat-item {
+        width: 100%;
+        background: #f9fafb;
+        border-radius: 10px;
+    }
+    .result-wrapper {
+        margin-top: 30px;
+    }
+}
+</style>
+{% endblock %}
