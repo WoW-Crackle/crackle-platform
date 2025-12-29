@@ -1,9 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request, make_response
 import config
 from extensions import db, migrate
+from flask_cors import CORS
+import json
 
 def create_app():
     app = Flask(__name__)
+
+    # CORS 초기화
+    CORS(app)
 
     # DB 연결 정보 (PostgreSQL) 
     app.config["SQLALCHEMY_DATABASE_URI"] = config.SQLALCHEMY_DATABASE_URI
@@ -79,17 +84,17 @@ def create_app():
             }
         ]
 
-        return render_template("challengelist.html", page="challenges", challenges=challenges)
+        return jsonify(challenges)
 
-    @app.route("/challenges/<int:challenge_id>")
-    def challenge_detail(challenge_id):
+    @app.route("/challenges/<int:id>")
+    def challenge_detail(id):
         challenge_details = {
             1: {
                 "title": "SQL Injection",
                 "description": [
                     "이 문제는 일반적인 웹 애플리케이션에서 발견되는 SQL 인젝션 취약점을 다룹니다.",
                     "목표는 악의적인 SQL 쿼리를 주입하여 유효한 사용자 이름과 비밀번호 없이도 관리자 계정에 로그인하는 것입니다.",
-                    "애플리케이션은 사용자 로그인에 `username`과 `password` 필드를 사용하며, 이 값들을 백엔드에서 적절한 입력 유효성 검사 없이 SQL 쿼리에 직접 연결합니다."
+                    "애플리케이션은 사용자 로그인에 `username`과 `password` 필드를 사용하며, 이 값들을 백엔드에서 적절한 입력 유효성 검사 없이 SQL 쿼리에 직접 연결됩니다."
                 ],
                 "tasks": [
                     "웹 애플리케이션 로그인 페이지에서 SQL Injection 공격을 시도해보세요.",
@@ -148,14 +153,14 @@ def create_app():
             }
         }
 
-        challenge = challenge_details.get(challenge_id)
+        challenge = challenge_details.get(id)
         if not challenge:
             return "Challenge Not Found", 404
-        challenge["id"] = challenge_id
+        challenge["id"] = id
         return render_template("challengedetail.html", challenge=challenge)
     
-    @app.route("/challenges/<int:challenge_id>/edit")
-    def challenge_edit(challenge_id):
+    @app.route("/challenges/<int:id>/edit")
+    def challenge_edit(id):
         # 간단히 제목만 매핑 (필요하면 난이도도 바꿔줘도 됨)
         title_map = {
             1: "SQL Injection",
@@ -164,14 +169,14 @@ def create_app():
             4: "CSRF",
             5: "SSRF",
         }
-        title = title_map.get(challenge_id)
+        title = title_map.get(id)
         if not title:
             return "Challenge Not Found", 404
 
         challenge = {
-            "id": challenge_id,
+            "id": id,
             "title": title,
-            "difficulty": "초급" if challenge_id in (1, 2) else "중급",
+            "difficulty": "초급" if id in (1, 2) else "중급",
         }
 
         return render_template("codeedit.html", challenge=challenge)
@@ -191,6 +196,59 @@ def create_app():
             ]
         }
         return render_template("testfeedback.html", **test_result)
+
+    @app.route("/auth/login", methods=["POST"])
+    def login():
+        # 로그인 로직 구현
+        return jsonify({"message": "로그인 성공"})
+
+    @app.route("/auth/register", methods=["POST"])
+    def register():
+        # 회원가입 로직 구현
+        return jsonify({"message": "회원가입 성공"})
+
+    @app.route("/auth/logout", methods=["POST"])
+    def logout():
+        # 로그아웃 로직 구현
+        return jsonify({"message": "로그아웃 성공"})
+
+    @app.route("/users/me", methods=["GET"])
+    def get_my_page():
+        # 마이페이지 조회 로직 구현
+        return jsonify({"message": "마이페이지 정보"})
+
+    @app.route("/users/me", methods=["PATCH"])
+    def update_my_page():
+        # 계정 정보 수정 로직 구현
+        return jsonify({"message": "계정 정보 수정 성공"})
+
+    @app.route("/challenges", methods=["GET"])
+    def get_challenges():
+        challenges = [
+            {"id": 1, "title": "SQL Injection", "info": "쿼리 조작을 통한 데이터베이스 공격", "tags": [{"name": "SQL", "color": "green"}]},
+            {"id": 2, "title": "XSS", "info": "스크립트를 주입해 사용자 브라우저 공격", "tags": [{"name": "XSS", "color": "blue"}]},
+            {"id": 3, "title": "파일 다운로드 취약점", "info": "임의 파일 다운로드를 통한 권한 탈취", "tags": [{"name": "파일", "color": "red"}]},
+            {"id": 4, "title": "CSRF", "info": "사용자 인증 정보를 악용한 요청 위조", "tags": [{"name": "세션", "color": "blue"}]},
+            {"id": 5, "title": "SSRF", "info": "서버 내부 요청을 유도해 내부 자원 접근", "tags": [{"name": "서버", "color": "green"}]},
+        ]
+        response = make_response(json.dumps(challenges, ensure_ascii=False))
+        response.headers["Content-Type"] = "application/json; charset=utf-8"
+        return response
+
+    @app.route("/challenges/<int:id>", methods=["GET"])
+    def get_challenge_detail(id):
+        # 문제 상세 정보 조회 로직 구현
+        return jsonify({"message": f"문제 상세 정보 {id}"})
+
+    @app.route("/challenges/<int:id>/submit", methods=["POST"])
+    def submit_challenge(id):
+        # 소스코드 제출 로직 구현
+        return jsonify({"message": f"문제 {id} 제출 성공"})
+
+    @app.route("/submissions/<int:submission_id>", methods=["GET"])
+    def get_submission_feedback(submission_id):
+        # 결과 및 피드백 전달 로직 구현
+        return jsonify({"message": f"제출 {submission_id} 결과 및 피드백"})
 
     return app
 
