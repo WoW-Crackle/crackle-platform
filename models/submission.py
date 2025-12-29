@@ -21,10 +21,9 @@ class Submission(db.Model):
     # 채점 점수
     score = db.Column(db.Integer, nullable=True)
     # 제출 일시 
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime)
     # User(1) : Submission(N) 관계 설정
-    user = db.relationship("User", back_populates="submissions")
+    user = db.relationship("User", back_populates="submission")
     
     # Challenge(1) : Submission(N) 관계 설정
     challenge = db.relationship("Challenge", back_populates="submissions")

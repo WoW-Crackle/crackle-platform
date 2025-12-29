@@ -1,125 +1,16 @@
 {% extends "base.html" %}
-{% block title %}{{ challenge.title }} - Crackle{% endblock %}
-{% set page = "challenges" %}
-
-{% block head %}
-
-{% endblock %}
-
 {% block content %}
-<div class="detail-container">
 
-  <div class="detail-icon">{{ challenge.icon }}</div>
-
-  <h1 class="detail-title">{{ challenge.title }}</h1>
-
-  <div class="detail-text">
-    {% for line in challenge.description %}
-      <p>{{ line }}</p>
-    {% endfor %}
-  </div>
-
-  <ol class="task-list">
-    {% for t in challenge.tasks %}
-      <li>{{ t }}</li>
-    {% endfor %}
-  </ol>
-
-  <button class="action-btn"
-          onclick="location.href='/challenges/{{ challenge.id }}/edit'">
-    서버 생성하기 🔧
-  </button>
-
+<div class="challenge-detail" data-id="{{ challenge.id }}">
+    <h1>{{ challenge.title }}</h1>
+    <p>{{ challenge.description }}</p>
+    <p>난이도: {{ challenge.difficulty }}</p>
+    <p>태그:</p>
+    <ul>
+        {% for tag in challenge.tags %}
+            <li>{{ tag }}</li>
+        {% endfor %}
+    </ul>
 </div>
-
-<style>
-.detail-container {
-  max-width: 860px;
-  margin: 70px auto;
-  background: #ffffff;
-  padding: 48px;
-  border-radius: 20px;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.06);
-  text-align: center;
-  border: 1px solid #eef0f7;
-}
-
-.detail-icon {
-  font-size: 62px;
-  margin-bottom: 18px;
-}
-
-.detail-title {
-  font-size: 40px;
-  font-weight: 800;
-  margin-bottom: 28px;
-  color: #111827;
-}
-
-.detail-text {
-  text-align: left;
-  font-size: 17px;
-  line-height: 1.85;
-  color: #4b5563;
-  margin-bottom: 32px;
-}
-
-.detail-text p {
-  margin-bottom: 12px;
-}
-
-.task-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.task-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 30px;
-}
-
-.task-list li {
-  background: #f5f7ff;
-  border-radius: 10px;
-  padding: 18px 22px;
-  margin-bottom: 12px;
-  font-size: 16px;
-  color: #1f2937;
-  line-height: 1.6;
-  font-weight: 500;
-
-  border-left: none;
-  box-shadow: none;
-
-  position: relative;
-}
-
-.task-list li::before {
-  content: none !important;
-}
-
-.action-btn {
-  padding: 16px 42px;
-  font-size: 17px;
-  background: #6366f1;
-  color: #ffffff;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.15s transform ease;
-  box-shadow: 0 4px 12px rgba(99,102,241,0.25);
-}
-.action-btn:hover {
-  background: #4f46e5;
-  transform: translateY(-2px);
-}
-.action-btn:active {
-  transform: translateY(0px);
-}
-
-</style>
 
 {% endblock %}

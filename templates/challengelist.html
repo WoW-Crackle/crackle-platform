@@ -1,203 +1,42 @@
 {% extends "base.html" %}
-{% block title %}문제 목록 - Crackle{% endblock %}
-{% set page = "challenges" %}
-
 {% block content %}
 
 <div class="challenge-page">
-    <h1 class="page-title">문제 목록</h1>
-    <p class="page-desc">
-        다양한 보안 취약점 문제들을 학습하고, 실제 코드를 통해 해결하며, 당신의 보안 기술을 향상시키세요.<br>
-        각 문제를 클릭하여 자세한 내용을 확인하고 해결을 시작할 수 있습니다.
-    </p>
+  <h1 class="page-title">문제 목록</h1>
+  <p class="page-desc">난이도별로 문제를 선택하세요</p>
 
-    <div class="search-area">
-        <input id="searchInput" class="search-input" placeholder="문제를 검색해보세요..." />
-    </div>
+  <div class="search-area">
+    <input class="search-input" placeholder="문제 검색">
+  </div>
 
-    <div class="challenge-grid" id="challengeGrid">
-        <!-- API에서 데이터를 가져와 동적으로 채워질 영역 -->
-    </div>
-
-    <div class="pagination">
-        <button class="active">1</button>
-        <button>2</button>
-        <button>3</button>
-    </div>
+  <!-- JS가 여기에 문제 카드 삽입 -->
+  <div class="challenge-grid"></div>
 </div>
 
-<style>
-.challenge-page {
-    width: 100%;
-    max-width: 1100px;
-    margin: 120px auto 80px;
-    padding: 0 20px;
-    text-align: center;
-}
-
-.page-title {
-    font-size: 44px;
-    font-weight: 800;
-    margin-bottom: 12px;
-}
-
-.page-desc {
-    font-size: 15px;
-    color: #6b7280;
-    margin-bottom: 30px;
-    line-height: 1.5;
-}
-
-.search-area {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 45px;
-}
-
-.search-input {
-    width: 100%;
-    max-width: 520px;
-    padding: 14px 18px;
-    border: 1.8px solid #ddd;
-    border-radius: 14px;
-    font-size: 15px;
-    transition: .2s;
-    background: #fff;
-}
-
-.search-input:focus {
-    border-color: #636ae8;
-    outline: none;
-}
-
-.challenge-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 26px;
-}
-
-.challenge-card {
-    background: #fff;
-    border: 1.5px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 26px;
-    text-align: left;
-    transition: .2s;
-}
-.challenge-card:hover {
-    border-color: #636ae8;
-    transform: translateY(-4px);
-}
-
-.card-title {
-    font-size: 18px;
-    font-weight: 700;
-}
-.card-sub {
-    font-size: 14px;
-    color: #9ca3af;
-    margin-top: 4px;
-    margin-bottom: 20px;
-}
-
-.tag-box {
-    margin-bottom: 18px;
-}
-.tag {
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 10px;
-    margin: 3px;
-}
-
-.blue { background: #eef2ff; color: #636ae8; }
-.green { background: #e3f8e5; color: #34a853; }
-.red   { background: #fde8ea; color: #e84a5f; }
-
-.detail-btn {
-    display: block;
-    width: 100%;
-    background: #6366f1;
-    color: #fff;
-    padding: 12px 0;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-    transition: .2s;
-}
-.detail-btn:hover {
-    background: #4e55d0;
-}
-
-.pagination {
-    margin-top: 40px;
-}
-.pagination button {
-    width: 36px;
-    height: 36px;
-    border: 1px solid #e5e7eb;
-    background: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 0 4px;
-    transition: .2s;
-}
-.pagination button:hover,
-.pagination button.active {
-    background: #636ae8;
-    border-color: #636ae8;
-    color: #fff;
-}
-</style>
-
-{% endblock %}
-
-{% block script %}
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.getElementById("searchInput");
-    const challengeGrid = document.getElementById("challengeGrid");
+  const challengeGrid = document.querySelector(".challenge-grid");
 
-    if (searchInput) {
-        searchInput.addEventListener("input", () => {
-            const keyword = searchInput.value.toLowerCase();
-            const cards = document.querySelectorAll(".challenge-card");
-            cards.forEach(card => {
-                const text = card.dataset.title.toLowerCase();
-                card.style.display = text.includes(keyword) ? "block" : "none";
-            });
-        });
-    } else {
-        console.error("Search input element not found");
-    }
-
-    // API 호출하여 데이터 가져오기
-    fetch("/challenges")
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(challenge => {
-                const card = document.createElement("div");
-                card.className = "challenge-card";
-                card.dataset.title = challenge.title;
-
-                card.innerHTML = `
-                    <h3 class="card-title">${challenge.title}</h3>
-                    <p class="card-sub">${challenge.difficulty}</p>
-                    <div class="tag-box">
-                        ${challenge.tags.split(",").map(tag => `<span class="tag">${tag}</span>`).join(" ")}
-                    </div>
-                    <a class="detail-btn" href="/challenges/${challenge.id}">자세히 보기</a>
-                `;
-
-                challengeGrid.appendChild(card);
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching challenges:", error);
-            challengeGrid.innerHTML = "<p>문제를 불러오는 데 실패했습니다. 나중에 다시 시도해주세요.</p>";
-        });
+  fetch("/static/script.js")
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(challenge => {
+        const card = document.createElement("div");
+        card.className = "challenge-card";
+        card.innerHTML = `
+          <h3>${challenge.title}</h3>
+          <p>난이도: ${challenge.difficulty}</p>
+          <p>${challenge.description}</p>
+          <div>
+            ${challenge.tags.map(tag => `<span>${tag}</span>`).join(" ")}
+          </div>
+        `;
+        challengeGrid.appendChild(card);
+      });
+    })
+    .catch(error => console.error("Error loading challenges:", error));
 });
 </script>
 {% endblock %}
+

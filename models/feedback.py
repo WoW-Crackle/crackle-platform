@@ -10,7 +10,7 @@ class Feedback(db.Model):
     # 제출 ID (FK)
     submission_id = db.Column(db.Integer, db.ForeignKey("submissions.id"), nullable=False)
     # 피드백 내용
-    feedback_text = db.Column(db.Text, nullable=False)
+    feedback_test = db.Column(db.Text, nullable=False)
     # 힌트 수준: basic / detailed
     hint_level = db.Column(db.String(20), nullable=False)
     __table_args__ = (
