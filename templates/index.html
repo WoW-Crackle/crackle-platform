@@ -1,32 +1,21 @@
 {% extends "base.html" %}
-
 {% block title %}Crackle - Secure Coding Playground{% endblock %}
 {% set page = "home" %}
-
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-{% endblock %}
 
 {% block content %}
 <main class="hero">
   <div class="hero-inner">
-
-    <div>
-      <h1 class="hero-title">Crackle</h1>
-      <p class="hero-subtitle">Secure Coding Playground</p>
-
-      <p class="hero-desc">
-        시뮬레이션된 공격과 취약점 수정을 통해<br>실제 사이버 보안 기술을 연마하세요.
-      </p>
-
-      <div class="hero-image">🔐</div>
-
-      <div class="hero-buttons">
-        <a href="/login" class="btn-login">로그인 / 회원가입</a>
-        <button class="btn-guest">게스트로 시작</button>
-      </div>
+    <h1 class="hero-title">Crackle</h1>
+    <div class="hero-image">🔐</div>
+    <p class="hero-subtitle">Secure Coding Playground</p>
+    <p class="hero-desc">
+      시뮬레이션된 공격과 취약점 수정을 통해<br>
+      실제 사이버 보안 기술을 연마하세요.
+    </p>
+    <div class="hero-buttons">
+      <a href="{{ url_for('login_page') }}" class="btn-login">로그인 / 회원가입</a>
+      <a href="{{ url_for('challenge_list_page') }}" class="btn-guest">게스트로 시작</a>
     </div>
-
   </div>
 </main>
 {% endblock %}

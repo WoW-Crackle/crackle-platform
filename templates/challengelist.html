@@ -1,42 +1,23 @@
 {% extends "base.html" %}
+{% set page = "challenges" %}
+
 {% block content %}
-
-<div class="challenge-page">
-  <h1 class="page-title">문제 목록</h1>
-  <p class="page-desc">난이도별로 문제를 선택하세요</p>
-
-  <div class="search-area">
-    <input class="search-input" placeholder="문제 검색">
-  </div>
-
-  <!-- JS가 여기에 문제 카드 삽입 -->
-  <div class="challenge-grid"></div>
+<h1>문제 목록</h1>
+<div class="challenge-list">
+  {% for challenge in challenges %}
+    <div class="challenge-item">
+      <a href="{{ url_for('challenge_detail_page', challenge_id=challenge.id) }}">
+        <h2>{{ challenge.title }}</h2>
+      </a>
+      <p>{{ challenge.description }}</p>
+      <p>난이도: {{ challenge.difficulty }}</p>
+      <ul>
+        {% for tag in challenge.tags %}
+          <li>{{ tag }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
 </div>
-
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const challengeGrid = document.querySelector(".challenge-grid");
-
-  fetch("/static/script.js")
-    .then(response => response.json())
-    .then(data => {
-      data.forEach(challenge => {
-        const card = document.createElement("div");
-        card.className = "challenge-card";
-        card.innerHTML = `
-          <h3>${challenge.title}</h3>
-          <p>난이도: ${challenge.difficulty}</p>
-          <p>${challenge.description}</p>
-          <div>
-            ${challenge.tags.map(tag => `<span>${tag}</span>`).join(" ")}
-          </div>
-        `;
-        challengeGrid.appendChild(card);
-      });
-    })
-    .catch(error => console.error("Error loading challenges:", error));
-});
-</script>
 {% endblock %}
 

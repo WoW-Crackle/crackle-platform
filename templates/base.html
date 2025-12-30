@@ -1,104 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Crackle{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- 전역 CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-  <style>
-    /* ===== Navbar ONLY ===== */
-    .navbar {
-      width: 100%;
-      background: #ffffff;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .navbar-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-left a {
-      font-size: 20px;
-      font-weight: 800;
-      color: #4f46e5;
-      text-decoration: none;
-    }
-
-    .nav-center {
-      display: flex;
-      gap: 28px;
-    }
-
-    .nav-center a {
-      color: #6b7280;
-      font-weight: 500;
-      text-decoration: none;
-    }
-
-    .nav-center a.active {
-      color: #4f46e5;
-      font-weight: 700;
-    }
-
-    .nav-right {
-      display: flex;
-      gap: 10px;
-    }
-
-    .nav-button {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid #e5e7eb;
-      background: #fff;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .nav-button.primary {
-      background: #6366f1;
-      color: #fff;
-      border: none;
-      font-weight: 600;
-    }
-
-    .nav-button.primary:hover {
-      background: #4f46e5;
-    }
-
-    main {
-      padding-top: 60px;
-    }
-  </style>
 </head>
-
 <body>
-
 <nav class="navbar">
   <div class="navbar-inner">
     <div class="nav-left"><a href="/">Crackle</a></div>
-
-    <div class="nav-center">
-      <a href="/" class="{% if page=='home' %}active{% endif %}">홈</a>
-      <a href="/challenges" class="{% if page=='challenges' %}active{% endif %}">문제</a>
-    </div>
-
     <div class="nav-right">
-      <a href="/login" class="nav-button primary">로그인</a>
+      <a href="/" class="{% if page=='home' %}active{% endif %}">홈</a>
+      <a href="{{ url_for('challenge_list_page') }}" class="{% if page=='challenges' %}active{% endif %}">문제</a>
+      <a href="{{ url_for('login_page') }}" class="nav-button primary">로그인</a>
     </div>
   </div>
 </nav>
-
 <main>
   {% block content %}{% endblock %}
 </main>
-
 </body>
 </html>
