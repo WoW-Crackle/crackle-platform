@@ -23,7 +23,7 @@ class Submission(db.Model):
     # 제출 일시 
     created_at = db.Column(db.DateTime, nullable=False, default=datetime)
     # User(1) : Submission(N) 관계 설정
-    user = db.relationship("User", back_populates="submission")
+    user = db.relationship("User", back_populates="submissions")
     
     # Challenge(1) : Submission(N) 관계 설정
     challenge = db.relationship("Challenge", back_populates="submissions")

@@ -1,252 +1,730 @@
-body { font-family: 'Noto Sans KR', sans-serif; margin:0; padding:0; }
-/* =========================
-   공통 네비게이션
-   ========================= */
-.navbar {
-  width: 100%;
+.detail-container {
+  max-width: 860px;
+  margin: 70px auto;
   background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.navbar-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-left a {
-  font-size: 20px;
-  font-weight: 800;
-  color: #4f46e5;
-  text-decoration: none;
-}
-
-.nav-center {
-  display: flex;
-  gap: 28px;
-}
-
-.nav-center a {
-  color: #6b7280;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.nav-center a.active {
-  color: #4f46e5;
-  font-weight: 700;
-}
-
-.nav-right {
-  display: flex;
-  gap: 10px;
-}
-
-.nav-right a {
-  display: inline-flex;
-  align-items: center;
-}
-
-.nav-right a {
-  color: #6b7280;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.nav-right a.active {
-  color: #4f46e5;
-  font-weight: 700;
-}
-
-.nav-button {
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  cursor: pointer;
-  font-size: 14px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-button.primary {
-  background: #6366f1;
-  color: #fff;
-  border: none;
-  font-weight: 600;
-}
-
-.nav-button.primary:hover {
-  background: #4f46e5;
-}
-
-/* 홈 페이지 hero */
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between; /* 상단과 하단으로 분리 */
-  height: 100vh; /* 화면 전체 높이 */
+  padding: 48px;
+  border-radius: 20px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.06);
   text-align: center;
+  border: 1px solid #eef0f7;
 }
 
-.hero-inner {
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;                /* 내부 여백 추가 */
+.detail-icon {
+  font-size: 62px;
+  margin-bottom: 18px;
 }
 
-.hero-title {
-  font-size: 48px;
+.detail-title {
+  font-size: 40px;
   font-weight: 800;
-  margin-bottom: 0px;
+  margin-bottom: 28px;
+  color: #111827;
 }
 
-.hero-image {
-  font-size: 120px; /* 자물쇠 이모티콘 크기 */
-  color: #6366f1;
-  margin: 20px 0; /* 제목과 하단 컨텐츠 사이 여백 */
+.detail-text {
+  text-align: left;
+  font-size: 17px;
+  line-height: 1.85;
+  color: #4b5563;
+  margin-bottom: 32px;
 }
 
-.hero-desc {
+.detail-text p {
+  margin-bottom: 12px;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+.task-list li {
+  background: #f5f7ff;
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-bottom: 12px;
   font-size: 16px;
-  margin-bottom: 30px;
-  line-height: 1.5;
-  color: #374151;
+  color: #1f2937;
+  line-height: 1.6;
+  font-weight: 500;
+
+  border-left: none;
+  box-shadow: none;
+
+  position: relative;
 }
 
-.hero-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: auto; /* 하단으로 이동 */
+.task-list li::before {
+  content: none !important;
 }
 
-.hero-buttons .btn-login,
-.hero-buttons .btn-guest {
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.2s;
-}
-
-.hero-buttons .btn-login {
+.action-btn {
+  padding: 16px 42px;
+  font-size: 17px;
   background: #6366f1;
-  color: #fff;
-}
-
-.hero-buttons .btn-login:hover {
-  background: #4f46e5;
-}
-
-.hero-buttons .btn-guest {
-  background: #e5e7eb;
-  color: #111827;
-}
-
-.hero-buttons .btn-guest:hover {
-  background: #d1d5db;
-}
-
-/* =========================
-   문제 목록 페이지
-   ========================= */
-.challenge-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0 15px; /* 상단 여백 제거하여 제목과 정렬 */
-}
-
-.challenge-item {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  transition: box-shadow 0.2s;
-}
-
-.challenge-item:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.challenge-item a {
-  text-decoration: none;
-  color: #111827;
-}
-
-.challenge-item h2 {
-  margin: 0 0 10px 0;
-}
-
-.challenge-item p {
-  margin: 5px 0;
-}
-
-.challenge-item ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.challenge-item ul li {
-  background: #e5e7eb;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-/* =========================
-   문제 상세페이지
-   ========================= */
-.challenge-detail {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.challenge-detail h1 {
-  margin-bottom: 15px;
-  font-size: 28px;
-}
-
-.challenge-detail p {
-  margin-bottom: 10px;
-}
-
-.challenge-detail ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.challenge-detail ul li {
-  background: #e5e7eb;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.challenge-detail a {
-  display: inline-block;
-  margin-top: 20px;
-  color: #4f46e5;
-  text-decoration: none;
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
   font-weight: 600;
+  transition: 0.15s transform ease;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.25);
+}
+.action-btn:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+}
+.action-btn:active {
+  transform: translateY(0px);
 }
 
-.challenge-detail a:hover {
-  text-decoration: underline;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background-color:#f5f5ff;color:#111827;line-height:1.5}
+  a{text-decoration:none;color:inherit}
+
+  .navbar{width:100%;background:#ffffff;border-bottom: 1px solid #e5e7eb;}
+  .navbar-inner{position:relative;max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;}    
+  .nav-left{font-weight:600;font-size:18px}
+  .nav-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:32px;font-size:15px;}
+  .nav-center a{color:#6b7280}
+  .nav-center a.active{color:#4f46e5;font-weight:600}
+  .nav-center a:hover{color:#4f46e5}
+
+  .nav-right{display:flex;gap:10px;font-size:14px;align-items:center}
+  .nav-button{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;color:#374151;cursor:pointer;transition:.15s}
+  .nav-button:hover{background:#f9fafb}
+  .nav-button.primary{border:none;background:#6366f1;color:#fff;font-weight:600}
+  .nav-button.primary:hover{background:#4f46e5}
+  .nav-button span.icon{font-size:16px}
+  .hidden{display:none!important}
+
+  @media(max-width:900px){ .nav-center{display:none} }
+
+  /* 콘텐츠 섹션 간격 */
+  main {padding-top: 60px;}
+
+  .navbar {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .navbar-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-left a {
+    font-size: 20px;
+    font-weight: 800;
+    color: #4f46e5;
+    text-decoration: none;
+  }
+
+  .nav-center {
+    display: flex;
+    gap: 28px;
+  }
+
+  .nav-center a {
+    color: #6b7280;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .nav-center a.active {
+    color: #4f46e5;
+    font-weight: 700;
+  }
+
+  .nav-right {
+    display: flex;
+    gap: 10px;
+  }
+
+  .nav-right a {
+    display: inline-flex;
+    align-items: center;
+    color: #6b7280;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .nav-right a.active {
+    color: #4f46e5;
+    font-weight: 700;
+  }
+
+  .nav-button {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 홈 페이지 hero */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* 상단과 하단으로 분리 */
+    height: 100vh; /* 화면 전체 높이 */
+    text-align: center;
+  }
+
+  .hero-inner {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;                /* 내부 여백 추가 */
+  }
+
+  .hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 0px;
+  }
+
+  .hero-image {
+    font-size: 120px; /* 자물쇠 이모티콘 크기 */
+    color: #6366f1;
+    margin: 20px 0; /* 제목과 하단 컨텐츠 사이 여백 */
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    color: #374151;
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: auto; /* 하단으로 이동 */
+  }
+
+  .hero-buttons .btn-login,
+  .hero-buttons .btn-guest {
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .hero-buttons .btn-login {
+    background: #6366f1;
+    color: #fff;
+  }
+
+  .hero-buttons .btn-login:hover {
+    background: #4f46e5;
+  }
+
+  .hero-buttons .btn-guest {
+    background: #e5e7eb;
+    color: #111827;
+  }
+
+  .hero-buttons .btn-guest:hover {
+    background: #d1d5db;
+  }
+
+  /* =========================
+     문제 목록 페이지
+     ========================= */
+  .challenge-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 15px; /* 상단 여백 제거하여 제목과 정렬 */
+  }
+
+  .challenge-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    transition: box-shadow 0.2s;
+  }
+
+  .challenge-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .challenge-item a {
+    text-decoration: none;
+    color: #111827;
+  }
+
+  .challenge-item h2 {
+    margin: 0 0 10px 0;
+  }
+
+  .challenge-item p {
+    margin: 5px 0;
+  }
+
+  .challenge-item ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .challenge-item ul li {
+    background: #e5e7eb;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  /* =========================
+     문제 상세페이지
+     ========================= */
+  .challenge-detail {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .challenge-detail h1 {
+    margin-bottom: 15px;
+    font-size: 28px;
+  }
+
+  .challenge-detail p {
+    margin-bottom: 10px;
+  }
+
+  .challenge-detail ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .challenge-detail ul li {
+    background: #e5e7eb;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .challenge-detail a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .challenge-detail a:hover {
+    text-decoration: underline;
+  }
+
+  /*challengelist.html*/
+  .challenge-page {
+      width: 100%;
+      max-width: 1100px;
+      margin: 120px auto 80px;
+      padding: 0 20px;
+      text-align: center;
+  }
+
+  .page-title {
+      font-size: 44px;
+      font-weight: 800;
+      margin-bottom: 12px;
+  }
+
+  .page-desc {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 30px;
+      line-height: 1.5;
+  }
+
+  .search-area {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 45px;
+  }
+
+  .search-input {
+      width: 100%;
+      max-width: 520px;
+      padding: 14px 18px;
+      border: 1.8px solid #ddd;
+      border-radius: 14px;
+      font-size: 15px;
+      transition: .2s;
+      background: #fff;
+  }
+  .search-input:focus {
+      border-color: #636ae8;
+      outline: none;
+  }
+
+  .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 26px;
+  }
+
+  .challenge-card {
+      background: #fff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 26px;
+      text-align: left;
+      transition: .2s;
+  }
+  .challenge-card:hover {
+      border-color: #636ae8;
+      transform: translateY(-4px);
+  }
+
+  .card-title {
+      font-size: 18px;
+      font-weight: 700;
+  }
+  .card-sub {
+      font-size: 14px;
+      color: #9ca3af;
+      margin-top: 4px;
+      margin-bottom: 20px;
+  }
+
+  .tag-box {
+      margin-bottom: 18px;
+  }
+  .tag {
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 10px;
+      margin: 3px;
+  }
+
+  .blue { background: #eef2ff; color: #636ae8; }
+  .green { background: #e3f8e5; color: #34a853; }
+  .red   { background: #fde8ea; color: #e84a5f; }
+
+  .detail-btn {
+      display: block;
+      width: 100%;
+      background: #6366f1;
+      color: #fff;
+      padding: 12px 0;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      transition: .2s;
+  }
+  .detail-btn:hover {
+      background: #4e55d0;
+  }
+
+  .pagination {
+      margin-top: 40px;
+  }
+  .pagination button {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 0 4px;
+      transition: .2s;
+  }
+  .pagination button:hover,
+  .pagination button.active {
+      background: #636ae8;
+      border-color: #636ae8;
+      color: #fff;
+  }
+
+  /*index.html*/
+  body {
+      background:#EEF0FF;
+      min-height:100vh;
+  }
+
+  .hero {
+      width: 100%;
+      padding: 80px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .hero-inner {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+  }
+
+  .hero-inner > div {
+      text-align:left;
+  }
+
+  .hero-title {
+      font-size: 44px;
+      font-weight: 800;
+      margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+      font-size: 18px;
+      font-weight: 600;
+      color: #4b5563;
+      margin-bottom: 18px;
+  }
+
+  .hero-desc {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 32px;
+      max-width: 420px;
+  }
+
+  .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+  }
+
+  .btn-login,
+  .btn-guest {
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .15s;
+  }
+
+  .btn-login {
+      background: #6366f1;
+      border: none;
+      color: white;
+  }
+  .btn-login:hover {
+      background: #4f46e5;
+  }
+
+  .btn-guest {
+      background: white;
+      color: #374151;
+      border: 1px solid #d1d5db;
+  }
+  .btn-guest:hover {
+      background: #f9fafb;
+  }
+
+  .hero-image {
+      flex:1;
+      max-width: 420px;
+      aspect-ratio: 1.4;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 28px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.08);
+  }
+
+  .hero-image span {
+      font-size: 65px;
+  }
+
+  .hidden { display: none !important; }
+
+  @media(max-width:900px){
+      .hero-inner {
+          flex-direction:column;
+          text-align:center;
+      }
+      .hero-inner > div {
+          text-align:center;
+      }
+      .hero-image {
+          order:-1;
+          width:80%;
+          margin:0 auto;
+      }
+      .hero-buttons {
+          justify-content:center;
+      }
+  }
+  /*login.html*/
+  * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+            sans-serif;
+          background-color: #f9fafb;
+          color: #111827;
+        }
+
+        .page-wrapper {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px 16px;
+        }
+
+        .card {
+          width: 100%;
+          max-width: 420px;
+          background-color: #ffffff;
+          border-radius: 24px;
+          padding: 32px 32px 24px;
+          box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+          border: 1px solid #f3f4f6;
+        }
+
+        .card-title {
+          font-size: 22px;
+          font-weight: 700;
+          text-align: center;
+          margin-bottom: 8px;
+        }
+
+        .card-subtext {
+          text-align: center;
+          font-size: 13px;
+          color: #6b7280;
+          margin-bottom: 24px;
+        }
+
+        .form-group {
+          margin-bottom: 14px;
+        }
+
+        .form-label {
+          display: block;
+          font-size: 13px;
+          font-weight: 500;
+          color: #4b5563;
+          margin-bottom: 4px;
+        }
+
+        .form-input {
+          width: 100%;
+          padding: 10px 12px;
+          border-radius: 8px;
+          border: 1px solid #e5e7eb;
+          font-size: 14px;
+          background-color: #f3f4f6;
+          outline: none;
+          transition: border-color 0.15s ease, box-shadow 0.15s ease,
+            background-color 0.15s ease;
+        }
+
+        .form-input::placeholder {
+          color: #9ca3af;
+        }
+
+        .form-input:focus {
+          border-color: #6366f1;
+          background-color: #ffffff;
+          box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn {
+          margin-top: 18px;
+          width: 100%;
+          padding: 11px 16px;
+          border-radius: 999px;
+          border: none;
+          background-color: #6366f1;
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.15s ease, box-shadow 0.15s ease,
+            transform 0.05s ease;
+        }
+
+        .submit-btn:hover {
+          background-color: #4f46e5;
+          box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+        }
+
+        .submit-btn:active {
+          transform: translateY(1px);
+          box-shadow: none;
+        }
+
+        .link-row {
+          margin-top: 12px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 12px;
+          color: #6b7280;
+        }
+
+        .link-row a {
+          color: #6366f1;
+          text-decoration: none;
+          font-weight: 500;
+        }
+
+        .link-row a:hover {
+          text-decoration: underline;
+        }
+
+        .bottom-text {
+          margin-top: 18px;
+          text-align: center;
+          font-size: 13px;
+          color: #6b7280;
+        }
+
+        .bottom-text a {
+          color: #6366f1;
+          text-decoration: none;
+          font-weight: 500;
+          margin-left: 4px;
+        }
+
+        .bottom-text a:hover {
+          text-decoration: underline;
+        }
+
+        .error-box {
+          margin-bottom: 12px;
+          padding: 8px 10px;
+          border-radius: 8px;
+          background-color: #fef2f2;
+          color: #b91c1c;
+          font-size: 12px;
+        }

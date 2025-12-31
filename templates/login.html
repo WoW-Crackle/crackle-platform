@@ -1,29 +1,127 @@
-{% extends "base.html" %}
-{% block title %}로그인{% endblock %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <div class="card">
+        <div class="card-title">로그인</div>
+        <div class="card-subtext">
+          계속하려면 이메일과 비밀번호를 입력해주세요.
+        </div>
 
-{% block content %}
-<div class="login-container">
-  <h1>로그인</h1>
-  <form method="post" action="/login">
-    <div>
-      <label for="username">아이디</label>
-      <input type="text" id="username" name="username" required>
-    </div>
-    <div>
-      <label for="password">비밀번호</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">로그인</button>
-  </form>
-</div>
+        <div id="error-box" class="error-box" style="display: none"></div>
 
-<style>
-.login-container { max-width:400px; margin:50px auto; padding:20px; border:1px solid #ddd; border-radius:8px; }
-.login-container h1 { text-align:center; margin-bottom:20px; }
-.login-container form div { margin-bottom:15px; }
-.login-container form label { display:block; font-weight:bold; margin-bottom:5px; }
-.login-container form input { width:100%; padding:8px; box-sizing:border-box; }
-.login-container form button { width:100%; padding:10px; background:#6366f1; color:#fff; border:none; border-radius:4px; cursor:pointer; }
-.login-container form button:hover { background:#4f46e5; }
-</style>
-{% endblock %}
+        <form id="login-form">
+          <div class="form-group">
+            <label class="form-label" for="email">이메일</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              class="form-input"
+              placeholder="이메일 주소"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">비밀번호</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="form-input"
+              placeholder="비밀번호"
+              required
+            />
+          </div>
+
+          <button type="submit" class="submit-btn">로그인</button>
+
+          <div class="link-row">
+            <span></span>
+            <a href="#">비밀번호를 잊으셨나요?</a>
+          </div>
+        </form>
+
+        <div class="bottom-text">
+          계정이 없으신가요?
+          <a href="/signup">가입하기</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const loginForm = document.getElementById("login-form");
+      const errorBox = document.getElementById("error-box");
+
+      // 이미 로그인된 상태면 홈으로 이동(선택)
+      if (localStorage.getItem("access_token")) {
+        window.location.href = "/";
+      }
+
+      function showError(message) {
+        errorBox.innerHTML = message;
+        errorBox.style.display = "block";
+      }
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorBox.style.display = "none";
+        errorBox.innerHTML = "";
+
+        const payload = {
+          email: document.getElementById("email").value.trim(),
+          password: document.getElementById("password").value,
+        };
+
+        try {
+          const res = await fetch("/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (res.ok) {
+            // ✅ 로그인 성공: 토큰 저장 (홈 화면 버튼 토글이 이 값으로 동작함)
+            localStorage.setItem("access_token", data.access_token);
+            localStorage.setItem("refresh_token", data.refresh_token);
+
+            // (선택) 토큰 타입도 필요하면 저장
+            // localStorage.setItem("token_type", data.token_type || "Bearer");
+
+            window.location.href = "/";
+            return;
+          }
+
+          // 에러 응답 처리(명세: invalid_credentials는 message로 옴)
+          if (data.message) {
+            showError(data.message);
+            return;
+          }
+
+          // 유효성 에러(명세: errors 객체)
+          if (data.errors) {
+            const messages = [];
+            for (const [field, msgs] of Object.entries(data.errors)) {
+              (msgs || []).forEach((m) => messages.push(`${field}: ${m}`));
+            }
+            showError(messages.join("<br />") || "로그인에 실패했습니다.");
+            return;
+          }
+
+          showError("로그인에 실패했습니다.");
+        } catch (err) {
+          console.error(err);
+          alert("서버와 통신 중 오류가 발생했습니다.");
+        }
+      });
+    </script>
+  </body>
+</html>

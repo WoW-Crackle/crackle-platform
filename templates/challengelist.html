@@ -1,23 +1,61 @@
 {% extends "base.html" %}
+
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+{% endblock %}
+{% block title %}문제 목록 - Crackle{% endblock %}
 {% set page = "challenges" %}
 
 {% block content %}
-<h1>문제 목록</h1>
-<div class="challenge-list">
-  {% for challenge in challenges %}
-    <div class="challenge-item">
-      <a href="{{ url_for('challenge_detail_page', challenge_id=challenge.id) }}">
-        <h2>{{ challenge.title }}</h2>
-      </a>
-      <p>{{ challenge.description }}</p>
-      <p>난이도: {{ challenge.difficulty }}</p>
-      <ul>
-        {% for tag in challenge.tags %}
-          <li>{{ tag }}</li>
-        {% endfor %}
-      </ul>
+<div class="challenge-page">
+    <h1 class="page-title">문제 목록</h1>
+    <p class="page-desc">
+        다양한 보안 취약점 문제들을 학습하고, 실제 코드를 통해 해결하며, 당신의 보안 기술을 향상시키세요.<br>
+        각 문제를 클릭하여 자세한 내용을 확인하고 해결을 시작할 수 있습니다.
+    </p>
+
+    <div class="search-area">
+        <input id="searchInput" class="search-input" placeholder="문제를 검색해보세요..." />
     </div>
-  {% endfor %}
+
+    <div class="challenge-grid">
+        {% for c in challenges %}
+        <div class="challenge-card" data-title="{{ c.title }}">
+
+            <h3 class="card-title">{{ c.title }}</h3>
+            <p class="card-sub">{{ c.info }}</p>
+
+            <div class="tag-box">
+                {% for tag in c.tags %}
+                <span class="tag {{ tag.color }}">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+
+            <a class="detail-btn" href="/challenges/{{ c.id }}">자세히 보기</a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="pagination">
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+    </div>
 </div>
 {% endblock %}
 
+{% block script %}
+<script>
+const searchInput = document.getElementById("searchInput");
+const cards = document.querySelectorAll(".challenge-card");
+
+searchInput.addEventListener("input", () => {
+    const keyword = searchInput.value.toLowerCase();
+    cards.forEach(card => {
+        const text = card.dataset.title.toLowerCase();
+        card.style.display = text.includes(keyword) ? "block" : "none";
+    });
+});
+</script>
+{% endblock %}

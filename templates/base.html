@@ -1,24 +1,81 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <title>{% block title %}Crackle{% endblock %}</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Crackle{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<nav class="navbar">
-  <div class="navbar-inner">
-    <div class="nav-left"><a href="/">Crackle</a></div>
-    <div class="nav-right">
-      <a href="/" class="{% if page=='home' %}active{% endif %}">홈</a>
-      <a href="{{ url_for('challenge_list_page') }}" class="{% if page=='challenges' %}active{% endif %}">문제</a>
-      <a href="{{ url_for('login_page') }}" class="nav-button primary">로그인</a>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-left"><a href="/">Crackle</a></div>
+
+      <div class="nav-center">
+        <a href="/" class="{% if page=='home' %}active{% endif %}">홈</a>
+        <a href="/challenges" class="{% if page=='challenges' %}active{% endif %}">문제</a>
+        <a href="#" class="{% if page=='ranking' %}active{% endif %}">랭킹</a>
+      </div>
+
+      <div class="nav-right">
+        <a class="nav-button" id="mySubmissionsLink" href="/login">
+          <span class="icon">📝</span><span>내 제출</span></a>
+
+        <a class="nav-button" id="dashboardLink" href="/login">
+          <span class="icon">🏠</span><span>대시보드</span></a>
+
+        <a id="loginBtn" class="nav-button primary" href="/login">로그인</a>
+        <button id="logoutBtn" class="nav-button" type="button">로그아웃</button>
+      </div>
     </div>
-  </div>
-</nav>
-<main>
+  </nav>
   {% block content %}{% endblock %}
-</main>
+<script>
+    function isLoggedIn() {
+    return Boolean(localStorage.getItem("access_token"));
+    }
+
+    function syncUI() {
+    const loggedIn = isLoggedIn();
+
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const mySubmissionsLink = document.getElementById("mySubmissionsLink");
+    const dashboardLink = document.getElementById("dashboardLink");
+
+    loginBtn?.classList.toggle("hidden", loggedIn);
+    logoutBtn?.classList.toggle("hidden", !loggedIn);
+
+    if (loggedIn) {
+        mySubmissionsLink?.setAttribute("href", "/submissions");
+        dashboardLink?.setAttribute("href", "/dashboard");
+    } else {
+        mySubmissionsLink?.setAttribute("href", "/login");
+        dashboardLink?.setAttribute("href", "/login");
+    }
+
+    const homeLogin = document.querySelector(".btn-login");
+    const homeGuest = document.querySelector(".btn-guest");
+
+    homeLogin?.classList.toggle("hidden", loggedIn);
+    homeGuest?.classList.toggle("hidden", loggedIn);
+    }
+
+    document.addEventListener("DOMContentLoaded", syncUI);
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+    localStorage.clear();
+    window.location.href = "/";
+    });
+    
+    document.querySelector('.code-box').addEventListener('focus', function() {
+    this.setAttribute('inputmode', 'latin');
+    this.style.imeMode = 'disabled';
+    });
+
+    </script>
+
+  {% block script %}{% endblock %}
 </body>
 </html>

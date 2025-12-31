@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, abort, request
 from flask_sqlalchemy import SQLAlchemy
 import json
 import os
+from extensions import db
 
 app = Flask(__name__)
 
@@ -12,26 +13,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "challenges.db")
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
 
-# =========================
-# DB 모델
-# =========================
-class Challenge(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    difficulty = db.Column(db.String(50), nullable=False)
-    tags = db.Column(db.Text)  # JSON 문자열
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "title": self.title,
-            "description": self.description,
-            "difficulty": self.difficulty,
-            "tags": json.loads(self.tags) if self.tags else []
-        }
+db.init_app(app)
 
 # =========================
 # 샘플 데이터 로드 (개발용)
@@ -66,45 +49,34 @@ def init_db_with_sample_data():
     print(f"{len(challenges)} challenges inserted into DB.")
 
 # =========================
+# 모델 import
+# =========================
+from models.user import User
+from models.category import Category
+from models.challenge import Challenge
+from models.submission import Submission
+from models.feedback import Feedback
+from models.refresh_token import RefreshToken
+
+from routes.auth import auth_bp
+app.register_blueprint(auth_bp)
+
+# =========================
 # 라우트
 # =========================
+@app.route("/")
+def index():
+    return render_template("index.html")
 
-# 로그인 페이지
+@app.route("/signup")
+def signup_page():
+    return render_template("signup.html")
+
 @app.route("/login")
 def login_page():
     return render_template("login.html")
 
-# 홈 페이지
-@app.route("/")
-def home():
-    return render_template("index.html", page="home")
-
 # 문제 목록 페이지 (HTML)
-@app.route("/challenges/page")
-def challenge_list_page():
-    page = int(request.args.get("page", 1))
-    limit = int(request.args.get("limit", 10))
-    search = request.args.get("search", "").strip()
-    difficulty = request.args.get("difficulty", "").strip()
-
-    query = Challenge.query
-    if search:
-        query = query.filter(Challenge.title.contains(search))
-    if difficulty:
-        query = query.filter(Challenge.difficulty == difficulty)
-
-    paginated = query.paginate(page=page, per_page=limit, error_out=False)
-    challenges_list = [c.to_dict() for c in paginated.items]
-
-    return render_template(
-        "challengelist.html",
-        challenges=challenges_list,
-        page=page,
-        limit=limit,
-        total=paginated.total,
-        page_name="challenges"
-    )
-
 # API: 전체 문제
 @app.route("/challenges")
 def get_challenges():
@@ -119,12 +91,67 @@ def challenge_detail_page(challenge_id):
         abort(404)
     return render_template("challengedetail.html", challenge=challenge, page="challenges")
 
+@app.route("/challenges/<int:challenge_id>/edit")
+def challenge_edit(challenge_id):
+    # 간단히 제목만 매핑 (필요하면 난이도도 바꿔줘도 됨)
+    title_map = {
+        1: "SQL Injection",
+        2: "XSS",
+        3: "파일 다운로드 취약점",
+        4: "CSRF",
+        5: "SSRF",
+    }
+    title = title_map.get(challenge_id)
+    if not title:
+        return "Challenge Not Found", 404
 
-# =========================
-# 서버 실행
-# =========================
+    challenge = {
+        "id": challenge_id,
+        "title": title,
+        "difficulty": "초급" if challenge_id in (1, 2) else "중급",
+    }
+
+    return render_template("codeedit.html", challenge=challenge)
+
+@app.route("/challenges/<int:cid>/feedback")
+def show_feedback(cid):
+    # 테스트 결과 예시
+    test_result = {
+        "result": "fail",
+        "pass_count": 2,
+        "fail_count": 3,
+        "hints": [
+            "입력 유효성 검사를 강화하세요.",
+            "SQL 인젝션 필터를 추가해보세요.",
+            "보안 토큰을 사용하는 것을 고려하세요."
+        ]
+    }
+    return render_template("testfeedback.html", **test_result)
+
+@app.route("/submissions")
+def submissions():
+    return "내 제출 페이지 (구현 필요)"
+
+@app.route("/dashboard")
+def dashboard():
+    return "대시보드 페이지 (구현 필요)"
+
+@app.route("/auth/login", methods=["POST"])
+def auth_login():
+    from flask import request, jsonify
+
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    # Example validation logic
+    if email == "test@example.com" and password == "password":
+        return jsonify({
+            "access_token": "example_access_token",
+            "refresh_token": "example_refresh_token"
+        }), 200
+
+    return jsonify({"message": "Invalid credentials"}), 401
+
 if __name__ == "__main__":
-    with app.app_context():
-        init_db_with_sample_data()
-    print("Starting Flask server at http://127.0.0.1:5000/")
     app.run(debug=True)

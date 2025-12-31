@@ -1,18 +1,28 @@
 {% extends "base.html" %}
+{% block title %}{{ challenge.title }} - Crackle{% endblock %}
 {% set page = "challenges" %}
 
-{% block title %}{{ challenge.title }} - Crackle{% endblock %}
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="challenge-detail">
-  <h1>{{ challenge.title }}</h1>
-  <p>{{ challenge.description }}</p>
-  <p>난이도: {{ challenge.difficulty }}</p>
-  <ul>
-    {% for tag in challenge.tags %}
-      <li>{{ tag }}</li>
+<div class="detail-container">
+
+  <h1 class="detail-title">{{ challenge.title }}</h1>
+
+  <div class="detail-text">
+    {% for line in challenge.description %}
+      <p>{{ line }}</p>
     {% endfor %}
-  </ul>
-  <a href="{{ url_for('challenge_list_page') }}">← 문제 목록으로 돌아가기</a>
+  </div>
+
+  <button class="action-btn"
+          onclick="location.href='/challenges/{{ challenge.id }}/edit'">
+    서버 생성하기 🔧
+  </button>
+
 </div>
+
 {% endblock %}
