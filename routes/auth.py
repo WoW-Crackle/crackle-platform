@@ -76,7 +76,7 @@ def _issue_tokens(user: User):
     return access_token, refresh_token
 
 # 보호된 API에서 access token 검증 
-def _validate_access_token_or_401():
+def validate_access_token_or_401():
     token = _get_bearer_token()
     if not token:
         return None, (
