@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tee 1</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  {% extends "base.html" %}
+  {% block content %}
+  <main>
+    <h1>Tee 1</h1>
+    <div class="product-detail">
+      <img src="{{ url_for('static', filename='img/tee1.png') }}" alt="티셔츠 이미지">
+      <div class="product-info">
+        <p><strong>가격:</strong> 25,900원</p>
+        <div class="actions">
+          <button>구매하기</button>
+        </div>
+      </div>
+    </div>
+  <!-- 탭 메뉴 -->
+  <nav class="detail-tabs">
+    <a href="#" class="tab-link active" onclick="showTab('info', this)">Information</a>
+    <a href="#" class="tab-link" onclick="showTab('size', this)">Size</a>
+    <a href="#" class="tab-link" onclick="showTab('review', this)">Review</a>
+    {% if user %}
+      <a href="{{ url_for('qna_page', product_id=product_id)}}" class="tab-link">Q&A</a>
+    {% else %}
+    <a href="#" class="tab-link" onclick="return confirmLogin('{{ url_for('login', next=url_for('qna_page', product_id=1)) }}')">Q&A</a>
+    {% endif %}
+    </nav>
+
+    <!-- 탭 이미지 -->
+    <div class="tab-content">
+      <img id="tab-image" src="{{ url_for('static', filename='img/information.png') }}" alt="탭 이미지">
+    </div>
+    {% endblock %}
+  </main>
+</body>
+</html>

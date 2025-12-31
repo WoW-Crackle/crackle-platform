@@ -1,0 +1,700 @@
+/* ==================================== */
+/* ===== Flash 메시지 ===== */
+/* ==================================== */
+
+.flash-messages {
+    width: 100%;
+    margin: 0 auto 15px auto;
+    text-align: center;
+}
+
+.flash {
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.flash.error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+}
+
+.flash.success {
+    color: #270;
+    background-color: #DFF2BF;
+}
+
+/* ==================================== */
+/* ===== 기본 설정 ===== */
+/* ==================================== */
+
+body {
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+    color: #333;
+}
+
+/* ==================================== */
+/* ===== 헤더 및 메뉴 ===== */
+/* ==================================== */
+
+header {
+    background: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* 기본 버튼 (헤더 등) */
+.btn {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    background: #fff;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn:hover {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* ==================================== */
+/* ===== 제목 ===== */
+/* ==================================== */
+
+h1, h2, form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.center-title {
+    text-align: center;
+    font-size: 24px;
+    margin: 30px 0 10px;
+}
+
+/* ==================================== */
+/* ===== 상품 목록 ===== */
+/* ==================================== */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 50px;
+    width: 730px;
+    margin: 40px auto 80px auto;
+    text-align: center;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product img {
+    width: 200px;
+    height: 200px;
+    border-radius: 6px;
+    object-fit: contain;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    transition: transform 0.2s;
+}
+
+.product img:hover {
+    transform: scale(1.05);
+}
+
+.name {
+    margin-top: 12px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.price {
+    margin-top: 4px;
+    font-size: 13.5px;
+}
+
+/* ==================================== */
+/* ===== 상품 상세 ===== */
+/* ==================================== */
+
+.product-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 40px;
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.product-detail img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    object-fit: contain;
+}
+
+.product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.product-info p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.product-info label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.product-info select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* ===== 상품 상세 - 버튼 영역 ===== */
+.actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.actions form {
+    display: inline-block;
+}
+
+.actions button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.actions button:hover {
+    background: #0056b3;
+}
+
+/* ===== 상품 상세 - 탭 ===== */
+.detail-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.detail-tabs a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: #f0f8ff;
+    transition: background 0.2s;
+}
+
+.detail-tabs a:hover {
+    background: #d0e8ff;
+}
+
+.tab-content {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.tab-content img {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.tab-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: #f0f8ff;
+    transition: background 0.2s, color 0.2s;
+}
+
+.tab-link:hover {
+    background: #d0e8ff;
+}
+
+.tab-link.active {
+    background: #007bff;
+    color: white;
+}
+
+/* ==================================== */
+/* ===== 로그인 페이지 ===== */
+/* ==================================== */
+
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.login-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.login-logo-section {
+    margin-bottom: 30px;
+}
+
+.login-logo {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.login-logo span:first-child {
+    letter-spacing: -0.5px;
+}
+
+.login-logo .divider {
+    width: 1px;
+    height: 24px;
+    background-color: #e0e0e0;
+}
+
+.login-subtext {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* 로그인 폼 필드 */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 14px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* 로그인 버튼 */
+.login-form .btn-login {
+    width: 100%;
+    padding: 16px;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 15px;
+}
+
+.login-form .btn-login:hover {
+    background: #333;
+}
+
+/* 자동 로그인 및 아이디/비밀번호 찾기 */
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #666;
+    margin-top: 15px;
+}
+
+.login-options input[type="checkbox"] {
+    margin-right: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
+    top: -1px;
+}
+
+.login-options input[type="checkbox"]:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.login-options input[type="checkbox"]:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-options .checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.login-options a {
+    color: #666;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.login-options a:hover {
+    text-decoration: underline;
+}
+
+/* 소셜 로그인 버튼 */
+.social-login-buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.social-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.social-btn img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.social-btn.kakao {
+    background-color: #FEE500;
+    color: #3C1E1E;
+}
+
+.social-btn.apple {
+    background-color: #000;
+    color: white;
+    border: 1px solid #ccc;
+}
+
+/* ==================================== */
+/* ===== Q&A 페이지 (상품 문의) ===== */
+/* ==================================== */
+
+.qna-page-container {
+    max-width: 760px;
+    margin: 40px auto;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.02);
+    padding: 30px 40px;
+}
+
+.qna-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.qna-header h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    text-align: left;
+}
+
+.qna-header .more-link {
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+}
+.qna-header .more-link:hover {
+    text-decoration: underline;
+}
+
+/* Q&A 필터 */
+.qna-filter-area {
+    margin-bottom: 25px;
+}
+
+.qna-filter-area select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #555;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999999%22%20d%3D%22M287%2069.9a14.7%2014.7%200%2000-20.8%200L146.2%20190.9%2026.2%2069.9a14.7%2014.7%200%2000-20.8%2020.8L135.8%20221.7a14.7%2014.7%200%200020.8%200l109.8-131A14.7%2014.7%200%2000287%2069.9z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 12px center;
+    background-size: 12px;
+}
+
+.qna-filter-area select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.qna-filter-checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+.qna-filter-checkbox input[type="checkbox"] {
+    margin-right: 8px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
+    top: -1px;
+}
+
+.qna-filter-checkbox input[type="checkbox"]:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.qna-filter-checkbox input[type="checkbox"]:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Q&A 목록 */
+.qna-list-items {
+    padding: 0;
+    list-style-type: none;
+    margin-bottom: 30px;
+}
+
+.qna-list-item {
+    padding: 18px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.qna-list-item:last-child {
+    border-bottom: none;
+}
+
+.qna-category {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.qna-category .lock-icon {
+    margin-right: 5px;
+    color: #999;
+}
+
+.qna-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.qna-list-item h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.qna-list-item p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.qna-meta {
+    font-size: 13px;
+    color: #888;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.qna-meta .author {
+    font-weight: bold;
+}
+
+/* Q&A 글 작성 폼 */
+.add-question-form {
+    max-width: 760px;
+    margin: 30px auto 0;
+    padding: 25px 30px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.02);
+}
+
+.add-question-form h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: left;
+}
+
+.add-question-form input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.add-question-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+    min-height: 80px;
+    max-height: 200px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.add-question-form button {
+    width: 100%;
+    padding: 12px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.add-question-form button:hover {
+    background: #0056b3;
+}
+
+/* Q&A 게시글 내 삭제 버튼 */
+.qna-item-actions {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.qna-item-actions .btn-delete {
+    padding: 6px 15px;
+    background-color: #e6e6e6;
+    color: #333;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: normal;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.qna-item-actions .btn-delete:hover {
+    background-color: #d0d0d0;
+}

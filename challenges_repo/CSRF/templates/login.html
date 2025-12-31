@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>로그인</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% extends "base.html" %}
+{% block content %}
+<main>
+    <div class="login-container">
+        <div class="login-logo-section">
+            <div class="login-logo">
+                <span>로그인</span>
+            </div>
+        </div>
+
+        <form class="login-form" method="POST" action="{{ url_for('login', next=next) }}">
+            <input type="text" name="username" placeholder="아이디" required>
+            <div class="password-input-wrapper">
+                <input type="password" name="password" placeholder="비밀번호" required id="password-field">
+            </div>
+            <button type="submit" class="btn-login">로그인</button>
+        </form>
+
+        <div class="login-options">
+            <div>
+                아이디 찾기
+                <span>|</span>
+                비밀번호 찾기
+            </div>
+        </div>
+
+        <div class="social-login-buttons">
+            <a href="#" class="social-btn kakao">
+                카카오 시작하기
+            </a>
+            <a href="#" class="social-btn apple">
+                Apple로 시작하기
+            </a>
+        </div>
+
+    </div>
+</main>
+{% endblock %}
+</body>
+</html>

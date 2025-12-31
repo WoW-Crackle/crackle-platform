@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Q&A - Crackle{% endblock %}
+
+{% block content %}
+<div class="qna-page-container">
+    <div class="qna-header">
+        <h2>Q&A 게시판 ({{ qna | length }})</h2>
+        <a href="#" class="more-link">더보기</a>
+    </div>
+
+    <ul class="qna-list-items">
+        {% for post in qna %}
+            <li class="qna-list-item">
+                <div class="qna-category">
+                    <span>{{ post.category or '상품 상세 문의' }}</span>
+                </div>
+                <div class="qna-title-row">
+                    <p>{{ post.title }}</p>
+                    <div class="qna-meta">
+                        <span class="author">{{ post.author }}</span>
+                    </div>
+                </div>
+
+                <div class="qna-body">
+                    {{ post.body | safe }}
+                </div>
+
+                {% if user == post.author %}
+                    <div class="qna-item-actions">
+                        <form method="post" action="{{ url_for('delete_question', post_id=post.id) }}">
+                            <button type="submit" class="btn-delete">삭제</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </li>
+        {% else %}
+            <li class="qna-list-item" style="text-align: center; color: #888;">
+                등록된 질문이 없습니다.
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="add-question-form">
+        <h3>새로운 질문 등록</h3>
+        <form method="post" action="{{ url_for('add_question') }}">
+            <input type="text" name="title" placeholder="제목" required>
+            <textarea name="body" placeholder="내용을 입력하세요" required></textarea>
+            <button type="submit">질문 등록</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
