@@ -38,6 +38,7 @@
 
     function syncUI() {
     const loggedIn = isLoggedIn();
+    console.log("로그인 상태:", loggedIn);
 
     const loginBtn = document.getElementById("loginBtn");
     const logoutBtn = document.getElementById("logoutBtn");
@@ -48,9 +49,11 @@
     logoutBtn?.classList.toggle("hidden", !loggedIn);
 
     if (loggedIn) {
+        console.log("로그인된 사용자 인터페이스 설정");
         mySubmissionsLink?.setAttribute("href", "/submissions");
         dashboardLink?.setAttribute("href", "/dashboard");
     } else {
+        console.log("로그아웃된 사용자 인터페이스 설정");
         mySubmissionsLink?.setAttribute("href", "/login");
         dashboardLink?.setAttribute("href", "/login");
     }

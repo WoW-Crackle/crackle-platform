@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
 {% endblock %}
 {% block title %}문제 목록 - Crackle{% endblock %}
@@ -22,18 +21,19 @@
 
     <div class="challenge-grid">
         {% for c in challenges %}
-        <div class="challenge-card" data-title="{{ c.title }}">
+        <div class="challenge-card" data-title="{{ c.title }}" data-description="{{ c.description }}">
 
             <h3 class="card-title">{{ c.title }}</h3>
-            <p class="card-sub">{{ c.info }}</p>
+            <p class="card-sub">{{ c.description }}</p>
 
-            <div class="tag-box">
+            <div class="challenge-tags">
+                <span class="tag tag-{{ c.difficulty|lower }}">{{ c.difficulty }}</span>
                 {% for tag in c.tags %}
-                <span class="tag {{ tag.color }}">{{ tag.name }}</span>
+                <span class="tag">{{ tag }}</span>
                 {% endfor %}
             </div>
 
-            <a class="detail-btn" href="/challenges/{{ c.id }}">자세히 보기</a>
+            <a class="detail-btn" href="/challenges/page/{{ c.id }}">자세히 보기</a>
         </div>
         {% endfor %}
     </div>
@@ -53,8 +53,9 @@ const cards = document.querySelectorAll(".challenge-card");
 searchInput.addEventListener("input", () => {
     const keyword = searchInput.value.toLowerCase();
     cards.forEach(card => {
-        const text = card.dataset.title.toLowerCase();
-        card.style.display = text.includes(keyword) ? "block" : "none";
+        const title = card.dataset.title.toLowerCase();
+        const description = card.dataset.description.toLowerCase();
+        card.style.display = title.includes(keyword) || description.includes(keyword) ? "block" : "none";
     });
 });
 </script>

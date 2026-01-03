@@ -32,7 +32,7 @@ def _get_bearer_token():
 def _encode_jwt(payload: dict) -> str:
     secret = current_app.config.get("SECRET_KEY")
     return jwt.encode(payload, secret, algorithm="HS256")
-
+        
 # JWT 검증/디코딩 
 def _decode_jwt(token: str) -> dict:
     secret = current_app.config.get("SECRET_KEY")

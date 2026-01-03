@@ -1,26 +1,29 @@
 {% extends "base.html" %}
 {% block title %}Crackle - Secure Coding Playground{% endblock %}
-{% set page = "home" %}
 
 {% block content %}
 <main class="hero">
   <div class="hero-inner">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <h1 class="hero-title">Crackle</h1>
-    <p class="hero-subtitle">Secure Coding Playground</p>
-    <p class="hero-desc">
-      시뮬레이션된 공격과 취약점 수정을 통해<br>
-      실제 사이버 보안 기술을 연마하세요.
-    </p>
-    <div class="hero-buttons">
-      <a href="/login" class="btn-login">로그인 / 회원가입</a>
+    <div class="hero-text">
+      <h1 class="hero-title">Crackle</h1>
+      <p class="hero-subtitle">Secure Coding Playground</p>
+      <p class="hero-desc">
+        시뮬레이션된 공격과 취약점 수정을 통해<br>
+        실제 사이버 보안 기술을 연마하세요.
+      </p>
+      <div class="hero-buttons">
+        <a href="/login" class="btn-login">로그인 / 회원가입</a>
         <button class="btn-guest" id="guestBtn">게스트로 시작</button>
       </div>
     </div>
-
     <div class="hero-image">
-      <span>🔐</span>
+      <span class="hero-lock">🔒</span>
     </div>
   </div>
 </main>
+<script>
+  document.getElementById("guestBtn").addEventListener("click", () => {
+    window.location.href = "/challenges";
+  });
+</script>
 {% endblock %}

@@ -14,7 +14,7 @@ class User(db.Model):
     # 암호화된 비밀번호
     password = db.Column(db.String(255), nullable=False)
     # 권한 : user / admin
-    role = db.Column(db.String(20), nullable=False)
+    role = db.Column(db.String(20), nullable=False, default="user")
     # 계정 생성 일시
     created_at = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(timezone.utc),)
     
