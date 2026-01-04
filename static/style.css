@@ -550,69 +550,80 @@ main {
     margin-bottom: 20px;
 }
 
-.tag-box {
+.difficulty-box {
+  margin-bottom: 10px;
+}
+
+.difficulty {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+
+    border-radius: 999px;
+    color: #ffffff;
+    line-height: 1;
+}
+
+/* 난이도 색상 (사진 기준) */
+.difficulty-초급 {
+    background-color: #34d399; /* 연한 초록 */
+}
+.difficulty-중급 {
+    background-color: #60a5fa; /* 연한 파랑 */
+}
+
+.difficulty-고급 {
+    background-color: #f472b6; /* 핑크 */
+}
+
+.tags-box {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-bottom: 12px; /* Add space below the tags */
 }
 
 .tag {
-  display: inline-block;
-  padding: 5px 10px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 12px;
-  color: white;
-  text-align: center;
-}
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-.tag-easy {
-  background-color: #10b981; /* 초급: 초록색 */
-}
-
-.tag-medium {
-  background-color: #3b82f6; /* 중급: 파란색 */
-}
-
-.tag-hard {
-  background-color: #ec4899; /* 고급: 핑크색 */
-}
-
-.detail-btn {
-    display: block;
-    width: 100%;
-    background: #6366f1;
-    color: #fff;
-    padding: 12px 0;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 14px;
+    padding: 4px 10px;
+    font-size: 12px;
     font-weight: 600;
-    transition: .2s;
-}
-.detail-btn:hover {
-    background: #4e55d0;
+
+    border-radius: 999px;
+    background-color: #f3f4f6; /* 연한 회색 */
+    color: #6b7280;
+
+    line-height: 1;
 }
 
-.pagination {
-    margin-top: 40px;
+/* 난이도 + 태그 전체 묶기 */
+.challenge-card .difficulty-box {
+    margin-bottom: 10px;
 }
-.pagination button {
-    width: 36px;
-    height: 36px;
-    border: 1px solid #e5e7eb;
-    background: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 0 4px;
-    transition: .2s;
+/* =========================
+   난이도 + 태그 한 줄 배치
+   ========================= */
+
+.challenge-card .difficulty-box,
+.challenge-card .tags-box {
+    display: inline-flex;
+    align-items: center;
 }
-.pagination button:hover,
-.pagination button.active {
-    background: #636ae8;
-    border-color: #636ae8;
-    color: #fff;
+
+.challenge-card .difficulty-box + .tags-box {
+    margin-left: 6px;
+}
+
+.challenge-desc {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /*index.html*/
@@ -1252,45 +1263,47 @@ body {
   color: #111827;
 }
 
-.challenge-box {
-  position: relative;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  margin-bottom: 20px;
+.challenge-desc {
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: ellipsis;
 }
 
-.challenge-tags {
-  display: flex;
-  gap: 8px;
+.detail-btn {
+  display: grid;
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #6366f1;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.challenge-card .detail-btn {
+  width: calc(100%); /* 설명 글 가로 너비와 동일하게 설정 */
+  margin: 0 auto;
+}
+
+.pagination button {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #6366f1;
+  background-color: #e5e7eb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
   margin-top: 10px;
 }
 
-.tag {
-  display: inline-block;
-  padding: 5px 10px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 12px;
+.pagination button.active {
+  background-color: #6366f1;
   color: white;
-  text-align: center;
 }
 
-.tag-easy {
-  background-color: #10b981; /* 초급: 초록색 */
-}
-
-.tag-medium {
-  background-color: #3b82f6; /* 중급: 파란색 */
-}
-
-.tag-hard {
-  background-color: #ec4899; /* 고급: 핑크색 */
-}
-
-.challenge-desc {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}

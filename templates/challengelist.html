@@ -26,12 +26,19 @@
             <h3 class="card-title">{{ c.title }}</h3>
             <p class="card-sub">{{ c.description }}</p>
 
-            <div class="challenge-tags">
-                <span class="tag tag-{{ c.difficulty|lower }}">{{ c.difficulty }}</span>
+            {% if c.difficulty %}
+            <div class="difficulty-box">
+                <span class="difficulty difficulty-{{ c.difficulty|lower }}">{{ c.difficulty }}</span>
+            </div>
+            {% endif %}
+
+            {% if c.tags %}
+            <div class="tags-box">
                 {% for tag in c.tags %}
                 <span class="tag">{{ tag }}</span>
                 {% endfor %}
             </div>
+            {% endif %}
 
             <a class="detail-btn" href="/challenges/page/{{ c.id }}">자세히 보기</a>
         </div>

@@ -94,9 +94,9 @@ def login_page():
 @app.route("/challenges")
 def challenges_page():
     challenges = Challenge.query.all()
-    for challenge in challenges:
-        # tags를 리스트로 변환
-        challenge.tags = challenge.tags.split(",") if challenge.tags else []
+
+    for c in challenges:
+        c.tags = json.loads(c.tags) if c.tags else []
     return render_template("challengelist.html", challenges=challenges)
 
 # 문제 상세 페이지
