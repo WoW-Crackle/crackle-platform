@@ -26,9 +26,12 @@ def create_app():
     from models.feedback import Feedback
     from models.refresh_token import RefreshToken
 
-    # auth blueprint 등록
+    # blueprint 등록
     from routes.auth import auth_bp
     app.register_blueprint(auth_bp)
+    
+    from routes.challenges import challenges_bp
+    app.register_blueprint(challenges_bp)
 
     # 라우트 정의
     @app.route("/")

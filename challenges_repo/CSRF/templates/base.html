@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Crackle Shop{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <header>
+        <h1><a href="{{ url_for('index') }}">Crackle</a></h1>
+        <nav class="menu">
+            <a href="{{ url_for('index') }}" class="btn">SHOP</a>
+            <a href="#" class="btn">CART (0)</a>
+            {% if user %}
+                <form action= "{{ url_for('logout') }}" method="POST" style= "margin: 0;">
+                    <button type = "submit" class = "btn">LOGOUT</button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn">LOGIN</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tee 1</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block title %}홈 - Crackle{% endblock %}
+
+{% block content %}
+<div class="products">
+    {% for i in range(6) %}
+    <div class="product">
+        {% if i == 0 %}
+        <!-- 1번 티셔츠만 클릭 가능 -->
+        <a href="{{ url_for('product_detail', product_id=1) }}">
+            <img src="{{ url_for('static', filename='img/tee1.png') }}" alt="티셔츠 1">
+        </a>
+        <p class="name">Tee 1</p>
+        <p class="price">25,900 KRW</p>
+        {% else %}
+        <!-- 나머지는 클릭 불가 -->
+        <img src="{{ url_for('static', filename='img/tee' ~ (i+1) ~ '.png') }}" alt="티셔츠 {{ i+1 }}">
+        <p class="name">Tee {{ i+1 }}</p>
+        <p class="price">25,900 KRW</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>
